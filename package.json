@@ -1,0 +1,29 @@
+{
+	"name": "pdf-screen-reader",
+	"private": true,
+	"scripts": {
+		"production": "dotenv -e apps/backend/.env -- node apps/backend/dist/server.js",
+		"build": "yarn && npx prisma generate && yarn workspace backend build && yarn workspace frontend build ",
+		"dev": "DEV=true turbo run dev",
+		"lint": "turbo run lint",
+		"format": "prettier --write \"**/*.{ts,tsx,md}\"",
+		"check-types": "turbo run check-types"
+	},
+	"prisma": {
+		"schema": "apps/backend/prisma/schema.prisma"
+	},
+	"devDependencies": {
+		"dotenv-cli": "^8.0.0",
+		"prettier": "^3.5.3",
+		"turbo": "^2.4.4",
+		"typescript": "5.5.4"
+	},
+	"engines": {
+		"node": "20.x"
+	},
+	"packageManager": "yarn@1.22.22",
+	"workspaces": [
+		"apps/*",
+		"packages/*"
+	]
+}
