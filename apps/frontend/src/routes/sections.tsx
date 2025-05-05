@@ -10,7 +10,6 @@ import { DashboardLayout } from 'src/layouts/dashboard';
 
 // ----------------------------------------------------------------------
 
-export const HomePage = lazy(() => import('src/pages/home'));
 export const UploadedFilesPage = lazy(() => import('src/pages/uploaded-files'));
 export const AiSettingsPage = lazy(() => import('src/pages/ai-settings'));
 export const FileConfigurationPage = lazy(() => import('src/pages/file-configuration'));
@@ -43,7 +42,6 @@ export function Router() {
         </DashboardLayout>
       ),
       children: [
-        { element: <HomePage />, index: true },
         { path: ROUTES.UPLOADED_FILES, element: <UploadedFilesPage /> },
         { path: ROUTES.AI_SETTINGS, element: <AiSettingsPage /> },
         { path: ROUTES.FILE_CONFIGURATION, element: <FileConfigurationPage /> },

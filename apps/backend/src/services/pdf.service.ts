@@ -110,30 +110,27 @@ class PdfService {
 
 						Attachment analyzed data:
 						${attachmentAnalyzedData}
+
+						Also if data mathces, please provide the matched status as last word in the response in lower case.
+
+						here is enum which i used to check the matched status:
+						${JSON.stringify(UploadedFileMatchedStatus, null, 2)}
 						`;
 
 					const description = await this.getPdfSummary(finalPrompt);
-					const parsedAnswer = extractJsonFromString(description);
 
-					const attachmetsArr = Array.from(parsedAnswer.attachmentPages);
-					const isAttchmentsNotNull =
-						attachmetsArr.length != 0 && attachmetsArr.every((page: any) => Boolean(page.attachmentPage));
+					const matchedStatus = description
+						.match(/(matched|not matched|match)/i)?.[0]
+						.toLowerCase() as UploadedFileMatchedStatus;
 
-					const weightComparisonArr = Array.from(parsedAnswer.weightComparison);
-					const isWeightComparisonMatched =
-						weightComparisonArr.length != 0 && weightComparisonArr.every((attch: any) => attch.match);
-
-					const matchedStatus =
-						isAttchmentsNotNull && isWeightComparisonMatched
-							? UploadedFileMatchedStatus.Match
-							: UploadedFileMatchedStatus.NoMatch;
+					console.log(matchedStatus);
 
 					await this.uploadedFilesRepository.update({
 						data: {
 							summaryAnalyzedData: description,
 
 							uploadedStatus: UploadedFileStatus.Completed,
-							matchedStatus: matchedStatus,
+							matchedStatus,
 
 							invoiceAnalyzedData: invoiceAnalyzedData,
 							attachmentAnalyzedData: attachmentAnalyzedData,
@@ -145,7 +142,7 @@ class PdfService {
 
 					socketIO.getIO().to(fileInPending.id).emit("file-statuses:update", {
 						uploadedStatus: UploadedFileStatus.Completed,
-						matchedStatus: matchedStatus,
+						matchedStatus,
 					});
 
 					console.log(`File ${fileInPending.id} processed`);

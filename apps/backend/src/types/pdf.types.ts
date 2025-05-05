@@ -29,7 +29,7 @@ export enum UploadedFileStatus {
 
 export enum UploadedFileMatchedStatus {
 	InProgress = "in_progress",
-	Match = "match",
+	Match = "matched",
 	NoMatch = "no_match",
 }
 

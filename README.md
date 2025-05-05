@@ -22,9 +22,11 @@ The **Screen Reader** project is designed to provide accessibility features for 
    ```bash
    npm install
    ```
+
 ## Production commands
-```npx prisma generate```
-```NODE_OPTIONS="--max-old-space-size=4096" npm run build```
+
+`npx prisma generate`
+`NODE_OPTIONS="--max-old-space-size=4096" npm run build`
 
 ## GraphicsMagick & Ghostscript Requirement
 
