@@ -6,7 +6,7 @@ The **Screen Reader** project is designed to provide accessibility features for 
 
 ## Features
 
-- Scan and analizyng PDF files
+- Scan and analizyng PDF invoices files
 
 ## Installation
 
